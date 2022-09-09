@@ -2,6 +2,7 @@ const colors = {
   black: '#000000',
   white: '#ffffff',
   green: '#3cb46e',
+  red: '#ff3c3c',
 };
 
 const common = {
