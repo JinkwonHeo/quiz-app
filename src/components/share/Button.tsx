@@ -11,7 +11,7 @@ export const Button = styled.button`
   font-size: 1rem;
   transition-duration: 0.4s;
   &:hover {
-    background-color: ${({ theme }) => theme.colors.green};
+    background-color: ${({ theme }) => theme.colors.gray};
     color: ${({ theme }) => theme.colors.white};
   }
   cursor: pointer;

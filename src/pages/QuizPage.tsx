@@ -1,32 +1,56 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
+import { CorrectCountState, CompleteTimeState, QuizListState } from '../components/recoil';
 import { decode } from 'html-entities';
 import { Button } from '../components/share/Button';
 import styled from 'styled-components';
 import getQuiz from '../api/getQuiz';
 
 export default function QuizPage() {
+  const [correctCount, setCorrectCount] = useRecoilState(CorrectCountState);
+  const [completeTime, setCompleteTime] = useRecoilState(CompleteTimeState);
+  const [quizList, setQuizList] = useRecoilState(QuizListState);
   const [quizNumber, setQuizNumber] = useState<number>(0);
-  const [correctCount, setCorrectCount] = useState<number>(0);
-  const [quizList, setQuizList] = useState<string[]>([]);
+  const [randomQuizList, setRandomQuizList] = useState<string[]>([]);
   const [isAnswerSelected, setIsAnswerSelected] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
   const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number>(0);
+  const countdownRef = useRef(0);
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
   const { data } = useQuery(['quizList'], getQuiz, {
     suspense: true,
     refetchOnWindowFocus: false,
     cacheTime: 0,
+    enabled: !state,
   });
 
   useEffect(() => {
-    setQuizList(
-      [...data.results[quizNumber].incorrect_answers, data.results[quizNumber].correct_answer].sort(
-        () => Math.random() - 0.5
-      )
-    );
-  }, [quizNumber]);
+    const interval = setInterval(() => (countdownRef.current += 1), 1000);
+    if (!state) setQuizList(data);
+
+    return () => {
+      setCompleteTime(countdownRef.current);
+      clearInterval(interval);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (quizNumber === 10) return navigate('/result');
+
+    if (quizList.results.length) {
+      setRandomQuizList(
+        [
+          ...quizList.results[quizNumber].incorrect_answers,
+          quizList.results[quizNumber].correct_answer,
+        ].sort(() => Math.random() - 0.5)
+      );
+    }
+  }, [quizNumber, quizList]);
 
   const handleNextQuizButton = () => {
     setQuizNumber((prev) => prev + 1);
@@ -35,25 +59,28 @@ export default function QuizPage() {
   };
 
   const handleClickAnswer = (e: React.BaseSyntheticEvent, index: number) => {
-    if (e.target.innerText === data.results[quizNumber].correct_answer) {
+    if (e.target.innerText === quizList.results[quizNumber].correct_answer) {
       setCorrectCount((prev) => prev + 1);
       setIsCorrect(true);
+    } else {
+      if (!window.localStorage.getItem(`${quizList.results[quizNumber].question}`)) {
+        const objString = JSON.stringify(quizList.results[quizNumber]);
+        window.localStorage.setItem(`${quizList.results[quizNumber].question}`, objString);
+      }
     }
 
-    setCorrectAnswerIndex(quizList.indexOf(data.results[quizNumber].correct_answer));
+    setCorrectAnswerIndex(randomQuizList.indexOf(quizList.results[quizNumber].correct_answer));
     setSelectedAnswer(index);
     setIsAnswerSelected(true);
   };
 
   return (
     <QuizPageContainer>
-      <h2>{quizNumber + 1}</h2>
-      <h2>{correctCount}</h2>
-      {data ? (
+      {quizList.results.length && quizNumber < 10 ? (
         <>
-          <QuizTitle>{decode(data.results[quizNumber].question)}</QuizTitle>
+          <QuizTitle>{decode(quizList.results[quizNumber].question)}</QuizTitle>
           <QuizListWrapper>
-            {quizList.map((quiz, index) => (
+            {randomQuizList.map((quiz, index) => (
               <Fragment key={index}>
                 <QuizList
                   className={
