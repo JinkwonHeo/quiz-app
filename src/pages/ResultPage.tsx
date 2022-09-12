@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { CompleteTimeState, CorrectCountState } from '../components/recoil';
+import { CompleteTimeState, CorrectCountState } from '../recoil';
 import { Button } from '../components/share/Button';
 
 export default function ResultPage() {
