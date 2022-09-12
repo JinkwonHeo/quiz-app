@@ -1,4 +1,4 @@
-import { atom, RecoilValue, Loadable, WrappedValue } from 'recoil';
+import { atom } from 'recoil';
 
 interface IQuizList {
   response_code: number;
@@ -12,6 +12,7 @@ export interface IResults {
   incorrect_answers: string[];
   question: string;
   type: string;
+  selected: string;
 }
 
 export default atom<IQuizList>({
