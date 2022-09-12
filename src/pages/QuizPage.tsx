@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
-import { CorrectCountState, CompleteTimeState, QuizListState } from '../components/recoil';
+import { CorrectCountState, CompleteTimeState, QuizListState } from '../recoil';
 import { decode } from 'html-entities';
 import { Button } from '../components/share/Button';
 import styled from 'styled-components';
