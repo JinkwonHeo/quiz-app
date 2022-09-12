@@ -8,6 +8,7 @@ import { Button } from '../components/share/Button';
 export default function ReviewSpecificPage() {
   const [reviewData, setReviewData] = useState<IResults | null>(null);
   const navigate = useNavigate();
+
   const { state } = useLocation();
 
   useEffect(() => {
