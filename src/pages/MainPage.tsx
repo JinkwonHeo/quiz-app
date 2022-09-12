@@ -9,10 +9,15 @@ export default function MainPage() {
     navigate('/quiz');
   };
 
+  const handleMoveReviewPageButton = () => {
+    navigate('/reviews');
+  };
+
   return (
     <>
       <div>여기에 이미지 넣을 것</div>
       <Button onClick={handleStartQuizButtonClick}>문제 풀기</Button>
+      <Button onClick={handleMoveReviewPageButton}>오답 노트</Button>
     </>
   );
 }

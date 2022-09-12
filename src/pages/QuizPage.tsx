@@ -59,17 +59,21 @@ export default function QuizPage() {
   };
 
   const handleClickAnswer = (e: React.BaseSyntheticEvent, index: number) => {
-    if (e.target.innerText === quizList.results[quizNumber].correct_answer) {
+    const quiz = quizList.results[quizNumber];
+
+    if (e.target.innerText === quiz.correct_answer) {
       setCorrectCount((prev) => prev + 1);
       setIsCorrect(true);
     } else {
-      if (!window.localStorage.getItem(`${quizList.results[quizNumber].question}`)) {
-        const objString = JSON.stringify(quizList.results[quizNumber]);
-        window.localStorage.setItem(`${quizList.results[quizNumber].question}`, objString);
+      if (!window.localStorage.getItem(`${quiz.question}`)) {
+        const quizToString = { ...quiz };
+        quizToString.selected = e.target.innerText;
+        const objString = JSON.stringify(quizToString);
+        window.localStorage.setItem(`${quiz.question}`, objString);
       }
     }
 
-    setCorrectAnswerIndex(randomQuizList.indexOf(quizList.results[quizNumber].correct_answer));
+    setCorrectAnswerIndex(randomQuizList.indexOf(quiz.correct_answer));
     setSelectedAnswer(index);
     setIsAnswerSelected(true);
   };
