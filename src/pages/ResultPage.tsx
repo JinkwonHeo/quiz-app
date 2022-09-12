@@ -10,7 +10,7 @@ export default function ResultPage() {
   const navigate = useNavigate();
 
   const handleMoveReviewPageButton = () => {
-    navigate('/review');
+    navigate('/reviews');
   };
 
   const handleRetryButton = () => {
