@@ -5,7 +5,7 @@ interface IQuizList {
   results: IResults[];
 }
 
-interface IResults {
+export interface IResults {
   category: string;
   correct_answer: string;
   difficultly: string;

@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage';
 import QuizPage from './pages/QuizPage';
 import ResultPage from './pages/ResultPage';
 import ReviewPage from './pages/ReviewPage';
+import ReviewSpecificPage from './pages/ReviewSpecificPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorUI from './components/ErrorUI';
 import { Oval } from 'react-loader-spinner';
@@ -23,7 +24,8 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/result" element={<ResultPage />} />
-            <Route path="/review" element={<ReviewPage />} />
+            <Route path="/reviews" element={<ReviewPage />} />
+            <Route path="/review" element={<ReviewSpecificPage />} />
           </Routes>
         </QueryClientProvider>
       </ErrorBoundary>
