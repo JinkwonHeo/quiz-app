@@ -8,7 +8,6 @@ import { Button } from '../components/share/Button';
 export default function ReviewSpecificPage() {
   const [reviewData, setReviewData] = useState<IResults | null>(null);
   const navigate = useNavigate();
-
   const { state } = useLocation();
 
   useEffect(() => {
@@ -18,6 +17,10 @@ export default function ReviewSpecificPage() {
 
   const handleMainPageButton = () => {
     navigate('/');
+  };
+
+  const handleReviewsPageButton = () => {
+    navigate('/reviews');
   };
 
   return (
@@ -38,6 +41,7 @@ export default function ReviewSpecificPage() {
           <div>내가 선택한 답변: {reviewData.selected}</div>
         </>
       ) : null}
+      <Button onClick={handleReviewsPageButton}>목록으로</Button>
       <Button onClick={handleMainPageButton}>초기화면으로</Button>
     </ReviewContainer>
   );

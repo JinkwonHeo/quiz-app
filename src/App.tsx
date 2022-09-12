@@ -8,12 +8,33 @@ import ReviewPage from './pages/ReviewPage';
 import ReviewSpecificPage from './pages/ReviewSpecificPage';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorUI from './components/ErrorUI';
+import './style/index.css';
+import { Container } from './components/share/Container';
+import { FlexContainer } from './components/share/FlexContainer';
 import { Oval } from 'react-loader-spinner';
 
-function App() {
+export default function App() {
   const queryClient = new QueryClient();
+
   return (
-    <Suspense fallback={<h1>loading...</h1>}>
+    <Suspense
+      fallback={
+        <Container>
+          <FlexContainer>
+            <Oval
+              height={70}
+              width={70}
+              color="white"
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#white"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          </FlexContainer>
+        </Container>
+      }
+    >
       <ErrorBoundary
         fallback={({ error, errorInfo }: { error: Error; errorInfo: string }) => (
           <ErrorUI error={error} errorInfo={errorInfo} />
@@ -32,5 +53,3 @@ function App() {
     </Suspense>
   );
 }
-
-export default App;

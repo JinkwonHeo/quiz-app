@@ -4,6 +4,7 @@ const colors = {
   green: '#3cb46e',
   red: '#ff3c3c',
   gray: '#d0d0d0',
+  blue: '#006de9',
 };
 
 const common = {
