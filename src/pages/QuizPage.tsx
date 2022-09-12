@@ -7,6 +7,8 @@ import { decode } from 'html-entities';
 import { Button } from '../components/share/Button';
 import styled from 'styled-components';
 import getQuiz from '../api/getQuiz';
+import { Container } from '../components/share/Container';
+import { FlexContainer } from '../components/share/FlexContainer';
 
 export default function QuizPage() {
   const [correctCount, setCorrectCount] = useRecoilState(CorrectCountState);
@@ -28,7 +30,6 @@ export default function QuizPage() {
     cacheTime: 0,
     enabled: !state,
   });
-
   useEffect(() => {
     const interval = setInterval(() => (countdownRef.current += 1), 1000);
     if (!state) setQuizList(data);
@@ -62,6 +63,8 @@ export default function QuizPage() {
     const quiz = quizList.results[quizNumber];
 
     if (e.target.innerText === quiz.correct_answer) {
+      console.log(e.target.innerText);
+      console.log(quiz.correct_answer);
       setCorrectCount((prev) => prev + 1);
       setIsCorrect(true);
     } else {
@@ -79,67 +82,117 @@ export default function QuizPage() {
   };
 
   return (
-    <QuizPageContainer>
-      {quizList.results.length && quizNumber < 10 ? (
-        <>
-          <QuizTitle>{decode(quizList.results[quizNumber].question)}</QuizTitle>
-          <QuizListWrapper>
-            {randomQuizList.map((quiz, index) => (
-              <Fragment key={index}>
-                <QuizList
-                  className={
-                    isAnswerSelected
-                      ? selectedAnswer === index
-                        ? isCorrect
-                          ? 'green'
-                          : 'red'
-                        : correctAnswerIndex === index
-                        ? 'green'
-                        : 'transparent'
-                      : 'null'
-                  }
-                  disabled={isAnswerSelected}
-                  onClick={(e) => handleClickAnswer(e, index)}
-                >
-                  {decode(quiz)}
-                </QuizList>
-              </Fragment>
-            ))}
-          </QuizListWrapper>
-        </>
-      ) : null}
-      {isAnswerSelected && <Button onClick={handleNextQuizButton}>다음 문제</Button>}
-      {isAnswerSelected ? isCorrect ? <h2>정답입니다</h2> : <h2>오답입니다</h2> : null}
-    </QuizPageContainer>
+    <Container>
+      <FlexContainer>
+        <QuizPageContainer>
+          {quizList.results.length && quizNumber < 10 ? (
+            <>
+              <QuizCount>question {quizNumber + 1} of 10</QuizCount>
+              <TitleContainer>
+                <QuizTitle>{decode(quizList.results[quizNumber].question)}</QuizTitle>
+              </TitleContainer>
+              <QuizListWrapper>
+                {randomQuizList.map((quiz, index) => (
+                  <Fragment key={index}>
+                    <QuizList
+                      className={
+                        isAnswerSelected
+                          ? selectedAnswer === index
+                            ? isCorrect
+                              ? 'green'
+                              : 'red'
+                            : correctAnswerIndex === index
+                            ? 'green'
+                            : 'gray'
+                          : 'null'
+                      }
+                      disabled={isAnswerSelected}
+                      onClick={(e) => handleClickAnswer(e, index)}
+                    >
+                      {decode(quiz)}
+                    </QuizList>
+                  </Fragment>
+                ))}
+              </QuizListWrapper>
+            </>
+          ) : null}
+        </QuizPageContainer>
+        <NoticeContainer>
+          {isAnswerSelected ? (
+            <Button onClick={handleNextQuizButton}>다음 문제</Button>
+          ) : (
+            <Button style={{ visibility: 'hidden', transitionDuration: 'unset' }}>hidden</Button>
+          )}
+        </NoticeContainer>
+        {isAnswerSelected ? (
+          isCorrect ? (
+            <h2>정답입니다</h2>
+          ) : (
+            <h2>오답입니다</h2>
+          )
+        ) : (
+          <h2 style={{ visibility: 'hidden' }}>hidden</h2>
+        )}
+      </FlexContainer>
+    </Container>
   );
 }
 
 const QuizPageContainer = styled.div`
   padding: 1rem;
+  margin: 0 1rem;
 `;
 
-const QuizTitle = styled.h3``;
+const NoticeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const QuizCount = styled.div`
+  font-family: 'Pretendard-light';
+  color: white;
+  opacity: 0.7;
+`;
+
+const TitleContainer = styled.div`
+  width: 100%;
+  height: 25vh;
+`;
+
+const QuizTitle = styled.div`
+  font-size: 1.5rem;
+  font-family: 'Pretendard-medium';
+  color: white;
+  line-height: 1.6;
+`;
 
 const QuizListWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   .red {
-    background-color: ${(props) => props.theme.colors.red};
+    background: linear-gradient(to bottom, #ff2121, #ab1414);
   }
 
   .green {
-    background-color: ${(props) => props.theme.colors.green};
+    background: linear-gradient(to bottom, #90ff21, #569d14);
   }
 
-  .transparent {
-    background-color: transparent;
+  .gray {
+    background-color: ${(props) => props.theme.colors.gray};
   }
 `;
 
 const QuizList = styled(Button)`
-  padding: 1rem;
-  border: none;
+  margin: 0.4rem 0;
+  box-shadow: 5px 5px 8px 3px rgb(0 0 0 / 20%), 2px 2px 5px -2px rgba(0, 0, 0, 0.218),
+    5px 2px 5px -7px rgb(0 0 0 / 20%);
+
   &:disabled {
     pointer-events: none;
   }

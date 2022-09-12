@@ -9,3 +9,8 @@
   font-family: 'Pretendard-medium';
   src: url('../style//fonts/Pretendard-Medium.ttf');
 }
+
+@font-face {
+  font-family: 'Pretendard-light';
+  src: url('../style//fonts/Pretendard-Light.ttf');
+}
