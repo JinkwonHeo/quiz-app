@@ -63,8 +63,6 @@ export default function QuizPage() {
     const quiz = quizList.results[quizNumber];
 
     if (e.target.innerText === quiz.correct_answer) {
-      console.log(e.target.innerText);
-      console.log(quiz.correct_answer);
       setCorrectCount((prev) => prev + 1);
       setIsCorrect(true);
     } else {
