@@ -11,8 +11,8 @@ export const Button = styled.button`
   font-family: 'Pretendard-medium';
   color: #0066ff;
   transition-duration: 0.4s;
-  box-shadow: 5px 5px 8px 3px rgb(0 0 0 / 20%), 2px 2px 5px -2px rgba(0, 0, 0, 0.218),
-    5px 2px 5px -7px rgb(0 0 0 / 20%);
+  box-shadow: 3px 5px 8px 3px rgb(0 0 0 / 20%), 1px 2px 5px -2px rgba(0, 0, 0, 0.218),
+    3px 2px 5px -7px rgb(0 0 0 / 20%);
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray};
     color: ${({ theme }) => theme.colors.white};

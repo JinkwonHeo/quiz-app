@@ -27,7 +27,7 @@ export default function ResultPage() {
   };
 
   const handleMoveReviewPageButton = () => {
-    navigate('/reviews');
+    navigate('/reviews', { state: true });
   };
 
   const handleRetryButton = () => {
@@ -45,14 +45,15 @@ export default function ResultPage() {
   return (
     <Container>
       <FlexContainer>
+        <ReviewPageTitle>Result</ReviewPageTitle>
         <ResultFlexContainer>
           <PieChartContainer>
             <PieChart chartData={data} />
           </PieChartContainer>
           <ResultTextFlexColumn>
-            <ResultText>정답 갯수: {correctCount}개</ResultText>
-            <ResultText>오답 갯수: {10 - correctCount}개</ResultText>
-            <ResultText>소요 시간: {completeTime}초</ResultText>
+            <ResultText>정답: {correctCount}개</ResultText>
+            <ResultText>오답: {10 - correctCount}개</ResultText>
+            <ResultText>시간: {completeTime}초</ResultText>
           </ResultTextFlexColumn>
         </ResultFlexContainer>
         <Button onClick={handleRetryButton}>다시 풀기</Button>
@@ -63,11 +64,22 @@ export default function ResultPage() {
   );
 }
 
+const ReviewPageTitle = styled.div`
+  position: relative;
+  width: 100%;
+  padding-bottom: 5rem;
+  text-align: center;
+  font-family: 'Pretendard-bold';
+  font-size: 2em;
+  color: white;
+  text-shadow: 3px 3px 6px black;
+`;
+
 const ResultFlexContainer = styled.div`
   display: flex;
   flex-direction: row;
   height: 10rem;
-  margin-bottom: 3rem;
+  margin-bottom: 6rem;
 `;
 
 const PieChartContainer = styled.div`
@@ -79,5 +91,6 @@ const ResultTextFlexColumn = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 3rem;
   line-height: 2;
 `;
