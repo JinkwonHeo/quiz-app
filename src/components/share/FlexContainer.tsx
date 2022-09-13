@@ -8,5 +8,5 @@ export const FlexContainer = styled.div`
   width: 400px;
   height: 97vh;
   border-radius: 40px;
-  background: linear-gradient(to bottom, #2e90ff, #0066dc);
+  background: linear-gradient(to bottom, #2e90ff, #4a17d4);
 `;

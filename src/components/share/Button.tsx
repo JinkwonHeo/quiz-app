@@ -9,6 +9,7 @@ export const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.white};
   font-size: 1rem;
   font-family: 'Pretendard-medium';
+  color: #0066ff;
   transition-duration: 0.4s;
   box-shadow: 5px 5px 8px 3px rgb(0 0 0 / 20%), 2px 2px 5px -2px rgba(0, 0, 0, 0.218),
     5px 2px 5px -7px rgb(0 0 0 / 20%);

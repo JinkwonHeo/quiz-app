@@ -175,14 +175,17 @@ const QuizListWrapper = styled.div`
 
   .red {
     background: linear-gradient(to bottom, #ff2121, #ab1414);
+    color: white;
   }
 
   .green {
     background: linear-gradient(to bottom, #90ff21, #569d14);
+    color: white;
   }
 
   .gray {
     background-color: ${(props) => props.theme.colors.gray};
+    color: white;
   }
 `;
 
