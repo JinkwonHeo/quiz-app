@@ -124,13 +124,15 @@ const AnswerContainer = styled.span`
 const MyAnswer = styled.span`
   font-size: 1rem;
   font-family: 'Pretendard-bold';
-  color: #ff3826;
+  text-shadow: 1px 1px 1px #000;
+  color: #ff2121;
 `;
 
 const CorrectAnswer = styled.span`
   font-size: 1rem;
   font-family: 'Pretendard-bold';
-  color: #72ff26;
+  text-shadow: 1px 1px 1px #000;
+  color: #90ff21;
 `;
 
 const Tag = styled.span`

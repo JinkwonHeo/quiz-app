@@ -124,9 +124,9 @@ export default function QuizPage() {
         </NoticeContainer>
         {isAnswerSelected ? (
           isCorrect ? (
-            <h2>정답입니다</h2>
+            <SelectedCorrectText>정답입니다</SelectedCorrectText>
           ) : (
-            <h2>오답입니다</h2>
+            <SelectedWrongText>오답입니다</SelectedWrongText>
           )
         ) : (
           <h2 style={{ visibility: 'hidden' }}>hidden</h2>
@@ -137,8 +137,8 @@ export default function QuizPage() {
 }
 
 const QuizPageContainer = styled.div`
+  width: 85%;
   padding: 1rem;
-  margin: 0 1rem;
 `;
 
 const NoticeContainer = styled.div`
@@ -187,6 +187,18 @@ const AnswerListWrapper = styled.div`
     background-color: ${(props) => props.theme.colors.gray};
     color: white;
   }
+`;
+
+const SelectedCorrectText = styled.h2`
+  font-family: 'Pretendard-bold';
+  text-shadow: 1px 1px 1px #000;
+  color: #90ff21;
+`;
+
+const SelectedWrongText = styled.h2`
+  font-family: 'Pretendard-bold';
+  text-shadow: 1px 1px 1px #000;
+  color: #ff2121;
 `;
 
 const AnswerList = styled(Button)`
