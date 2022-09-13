@@ -13,7 +13,7 @@ export default function MainPage() {
   };
 
   const handleMoveReviewPageButton = () => {
-    navigate('/reviews');
+    navigate('/reviews', { state: true });
   };
 
   return (

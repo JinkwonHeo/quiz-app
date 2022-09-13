@@ -18,7 +18,7 @@ export default function PieChart({ chartData }: any) {
 }
 
 const Container = styled.div`
-  width: fit-content;
-  height: fit-content;
-  padding-right: 8rem;
+  width: 120%;
+  height: 120%;
+  padding-right: 7rem;
 `;

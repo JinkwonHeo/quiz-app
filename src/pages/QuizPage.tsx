@@ -89,10 +89,10 @@ export default function QuizPage() {
               <TitleContainer>
                 <QuizTitle>{decode(quizList.results[quizNumber].question)}</QuizTitle>
               </TitleContainer>
-              <QuizListWrapper>
+              <AnswerListWrapper>
                 {randomQuizList.map((quiz, index) => (
                   <Fragment key={index}>
-                    <QuizList
+                    <AnswerList
                       className={
                         isAnswerSelected
                           ? selectedAnswer === index
@@ -108,10 +108,10 @@ export default function QuizPage() {
                       onClick={(e) => handleClickAnswer(e, index)}
                     >
                       {decode(quiz)}
-                    </QuizList>
+                    </AnswerList>
                   </Fragment>
                 ))}
-              </QuizListWrapper>
+              </AnswerListWrapper>
             </>
           ) : null}
         </QuizPageContainer>
@@ -167,7 +167,7 @@ const QuizTitle = styled.div`
   line-height: 1.6;
 `;
 
-const QuizListWrapper = styled.div`
+const AnswerListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -189,7 +189,7 @@ const QuizListWrapper = styled.div`
   }
 `;
 
-const QuizList = styled(Button)`
+const AnswerList = styled(Button)`
   margin: 0.4rem 0;
   box-shadow: 5px 5px 8px 3px rgb(0 0 0 / 20%), 2px 2px 5px -2px rgba(0, 0, 0, 0.218),
     5px 2px 5px -7px rgb(0 0 0 / 20%);
