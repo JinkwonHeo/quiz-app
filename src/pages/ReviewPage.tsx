@@ -32,18 +32,22 @@ export default function ReviewPage() {
     <>
       <Container>
         <FlexContainer>
-          <Header>
+          <Header hasQuiz={reviewQuiz.length ? true : false}>
             <IoChevronBack onClick={handlePrevPageButton} className="back-icon" />
             <ReviewPageTitle>Review</ReviewPageTitle>
           </Header>
           <ReviewContentWrapper>
-            {reviewQuiz.map((quiz: string) => (
-              <Fragment key={quiz}>
-                <ReviewContent onClick={() => handleMoveSpecificReview(quiz)}>
-                  {decode(quiz)}
-                </ReviewContent>
-              </Fragment>
-            ))}
+            {reviewQuiz.length ? (
+              reviewQuiz.map((quiz: string) => (
+                <Fragment key={quiz}>
+                  <ReviewContent onClick={() => handleMoveSpecificReview(quiz)}>
+                    {decode(quiz)}
+                  </ReviewContent>
+                </Fragment>
+              ))
+            ) : (
+              <NoticeMessage>오답노트가 없습니다</NoticeMessage>
+            )}
           </ReviewContentWrapper>
         </FlexContainer>
       </Container>
@@ -51,8 +55,14 @@ export default function ReviewPage() {
   );
 }
 
-const Header = styled.div`
-  width: 100%;
+interface Props {
+  hasQuiz: boolean;
+}
+
+const Header = styled.div<Props>`
+  width: 400px;
+  position: ${(props) => (props.hasQuiz ? 'relative' : 'fixed')};
+  top: 0;
 
   .back-icon {
     position: sticky;
@@ -99,4 +109,14 @@ const ReviewContent = styled.div`
     background: #eee;
     color: black;
   }
+`;
+
+const NoticeMessage = styled.div`
+  padding: 1.5rem 3rem;
+  transition-duration: 0.2s;
+  text-align: center;
+  font-size: 1rem;
+  font-family: 'Pretendard-medium';
+  color: white;
+  line-height: 1.4;
 `;
