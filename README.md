@@ -1,46 +1,97 @@
-# Getting Started with Create React App
+# Classting-assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+quiz-app은 간단하게 퀴즈를 풀 수 있는 웹앱입니다. <br>
+퀴즈 10문제를 풀면 바로 결과를 알 수 있고 틀린 문제를 오답노트를 통해 복습할 수 있습니다.
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+## 목차
 
-### `npm start`
+- [설치 및 실행방법](#설치-및-실행방법)
+- [주요기능](#주요기능)
+- [기술 스택](#기술-스택)
+- [프로젝트 진행](#프로젝트-진행)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<br>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 설치 및 실행방법
 
-### `npm test`
+1. 터미널을 실행시키고 프로젝트를 clone 받을 폴더로 이동합니다.
+2. 프로젝트를 clone 합니다.
+   ```
+   git clone https://github.com/JinkwonHeo/quiz-app.git
+   ```
+3. 프로젝트 폴더로 이동합니다.
+   ```
+   cd quiz-app
+   ```
+4. 프로젝트 폴더로 이동 후 패키지를 설치합니다.
+   ```
+   npm install
+   ```
+5. npm start를 입력하여 프로젝트를 실행합니다.
+   ```
+   npm start
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br>
 
-### `npm run build`
+## 실행링크
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+https://6321d19d5103a0796007cc58--jocular-medovik-3369b1.netlify.app/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 주요기능
 
-### `npm run eject`
+- 요구사항의 필수 구현 및 추가 구현 완료
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<br>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 기술 스택
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- React
+- TypeScript
+- Recoil
+- React-query
+- Styled-components
+- chart.js
+- Jest
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br>
 
-## Learn More
+## 프로젝트 진행
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 전체적인 UI작업
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- '리액트로 사고하기'를 바탕으로 UI를 컴포넌트 계층 구조로 나눈 후 대략적인 UI작업을 수행하였습니다. 기본적으로 일정한 스타일을 유지하고자 노력하였으며 사용자가 입력한 사항에 대해 시각적으로 피드백을 받을 수 있도록 구현하였습니다.
+- styled-components를 활용하여 CSS-in-js를 구현하였습니다. <br>
+
+### recoil과 react-query의 활용
+
+- Trivia APi를 이용하여 fetch 하고, react-query를 통해 서버에서 가져온 데이터를 좀 더 다루기 쉽게 설계하였습니다.<br>
+  서버에서 가져오는 정보를 즉시 state로 할당하는 대신 useQuery 훅을 통해 관리함으로써 이후에 다시 서버와 통신하는 시점 등을 설정하고 활용할 수 있었습니다.
+- recoil을 활용하여 react-query로 가져온 데이터를 전역적으로 관리하였습니다. <br>
+  recoil을 선택한 이유는 redux보다 라이브러리 사용에 필요한 boiler plate 생성이 간편하였고 전역상태관리를 react처럼 선언적으로 할 수 있기 떄문에 선택하였습니다.
+
+### Suspense, ErrorBoundary
+
+- 기존 리액트에서는 서버와의 통신 혹은 비동기작업이 수행될 때 isLoading 등의 state를 활용하여 개발자가 직접 분기처리를 통해 로딩페이지 등을 렌더링 하였습니다. 이는 로딩이 필요한 코드 모든 곳에 분기처리가 필요했고 따라서 컴포넌트마다 중복되는 코드가 많이 발생하는 단점이 있었습니다.<br>
+  따라서 이번 quiz-app 프로젝트는 리액트 18버전에서 정식으로 지원하게 된 Suspense를 통해 서버로부터 data를 fetching할 때 로딩서클을 렌더링하도록 구현하였습니다.
+- 또한 기존 리액트에서는 비동기구문에 try-catch 를 감싸서 에러처리를 하였습니다. 비동기처리 코드가 많아질수록 코드에는 try-catch가 많아지게 되고 이는 코드의 가독성을 좋지 않게 만들게 되었습니다.<br>
+  따라서 ErrorBoundary를 컴포넌트 최상단에 감싸줌으로써 에러를 감지하면 Suspense를 통해 에러발생 컴포넌트를 출력하도록 구현하였습니다.
+
+### 테스트
+
+- MainPage: 컴포넌트가 정상적으로 렌더링되고 event가 잘 발생되는지 테스트
+- QuizListState: QuizListState recoil state 테스트
+- useQuizQuery: useQuizQuery react-query 커스텀 훅 테스트
+
+<br>
+
+## 프로젝트를 마치며
+
+과제로 주어진 요구사항을 구현하면서 가장 어려웠던 점은 완성도를 높이는 작업이었습니다. 해당 작업을 완료하기 위해서는 우선 완성도가 무엇인지 정의내려야 했습니다.<br>
+나름대로 정의내린 완성도는 사용자가 앱을 사용할 때 불편함 없이 사용할 수 있도록 기본적인 기능을 수행하는 것은 물론, 확실한 피드백을 통해 현재 상황을 빠르게 이해하고 다음 행동을 함에 주저함이 들게 해서는 안된다고 생각했습니다. 따라서 완성도를 높이기 위해 앱의 동작에 방해가 되지 않는 선에서 시각적인 효과를 부여하고자 노력하였습니다. <br>
+또한 이 프로젝트는 혼자 진행하였지만 앞으로 어떤 회사를 가던 협업을 할 것이기 때문에 다른사람이 보아도 금방 이해할 수 있는 코드를 작성하도록 노력하였고 나아가 상세한 커밋메세지를 통해 작업사항을 git을 통해서 바로 알 수 있도록 하였습니다. <br>
+과제를 수행하도록 기회를 주셔서 스스로 성장할 수 있는 계기가 되었습니다. 감사합니다.
