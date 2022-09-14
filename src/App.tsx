@@ -14,7 +14,13 @@ import { FlexContainer } from './components/share/FlexContainer';
 import { Oval } from 'react-loader-spinner';
 
 export default function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        suspense: true,
+      },
+    },
+  });
 
   return (
     <Suspense
